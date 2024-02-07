@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/pages/login.dart';
+import 'package:translator_app/pages/register.dart';
 import 'package:translator_app/pages/splash.dart';
 
 void main() {
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         Routes.splash.path: (context) => const SplashPage(),
         Routes.login.path: (context) => const LoginPage(),
+        Routes.register.path: (context) => const RegisterPage()
       },
     );
   }

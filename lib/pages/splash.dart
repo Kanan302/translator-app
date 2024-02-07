@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:translator_app/pages/login.dart';
+import 'package:translator_app/core/constants/routes.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -17,11 +17,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _navigate(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
+    Future.delayed(const Duration(seconds: 4), () {
+      Navigator.pushNamed(context, Routes.login.path);
     });
   }
 
