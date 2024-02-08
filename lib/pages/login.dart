@@ -14,6 +14,13 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pushNamed(context, Routes.register.path);
   }
 
+  void _tohome() {
+    Navigator.pushNamed(context, Routes.home.path);
+  }
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,68 +34,75 @@ class _LoginPageState extends State<LoginPage> {
               const Padding(
                 padding:
                     EdgeInsets.only(top: 10, left: 20, right: 13, bottom: 8),
-                child: Center(
-                  child: Text(
-                    'Welcome back! Glad to see you, Again!',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),
+                child: Text(
+                  'Welcome back! Glad to see you, Again!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(children: [
-                  const AppTextField(
+                  AppTextField(
                     text: 'Enter your email',
                     prefixicon: Icons.email_outlined,
                     isPasswordType: false,
-                    suffixicon: null,
+                    controller: _emailController,
                   ),
                   const SizedBox(
                     height: 17,
                   ),
-                  const AppTextField(
+                  AppTextField(
                     text: 'Enter your password',
                     prefixicon: Icons.lock_outline_rounded,
                     isPasswordType: true,
-                    suffixicon: Icons.remove_red_eye_sharp,
-                    // validator: (value) {
-                    //   if (value!.isEmpty || value.length < 6) {
-                    //     return "Enter correct password";
-                    //   }
-                    //   return null;
-                    // },
+                    suffixicon: Icons.remove_red_eye_outlined,
+                    controller: _passwordController,
                   ),
                   const SizedBox(
                     height: 17,
                   ),
-                  const AppButton(text: 'Login'),
+                  AppButton(
+                    text: 'Login',
+                    ontap: () {
+                      if (_emailController.text.isEmpty ||
+                          _passwordController.text.length < 6) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('Please enter correct email or password'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      } else {
+                        _tohome;
+                      }
+                    },
+                  ),
                   const SizedBox(
                     height: 13,
                   ),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Don't have an account? ",
-                            style: TextStyle(
-                                color: Color(0xFF6A707C),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14)),
-                        GestureDetector(
-                          onTap: _toregister,
-                          child: const Text(
-                            'Sign up',
-                            style: TextStyle(
-                                color: Color(0xFF1E232C),
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have an account? ",
+                          style: TextStyle(
+                              color: Color(0xFF6A707C),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14)),
+                      GestureDetector(
+                        onTap: _toregister,
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                              color: Color(0xFF1E232C),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
                   )
                 ]),
               ),

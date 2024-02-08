@@ -6,15 +6,15 @@ class AppTextField extends StatefulWidget {
   final IconData prefixicon;
   final bool isPasswordType;
   final IconData? suffixicon;
-  final FormFieldValidator<String>? validator;
+  final TextEditingController controller;
 
   const AppTextField({
     Key? key,
     required this.text,
     required this.prefixicon,
     required this.isPasswordType,
+    required this.controller,
     this.suffixicon,
-    this.validator,
   }) : super(key: key);
 
   @override
@@ -55,14 +55,9 @@ class _AppTextFieldState extends State<AppTextField> {
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: Color.fromARGB(197, 101, 94, 94)),
         ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(color: Colors.red),
-        ),
       ),
       obscureText: widget.isPasswordType ? _isObscured : false,
       obscuringCharacter: '*',
-      validator: widget.validator,
     );
   }
 
@@ -75,8 +70,9 @@ class _AppTextFieldState extends State<AppTextField> {
 
 class AppButton extends StatefulWidget {
   final String text;
+  final Function ontap;
 
-  const AppButton({required this.text, super.key});
+  const AppButton({required this.text, super.key, required this.ontap});
 
   @override
   State<AppButton> createState() => _AppButtonState();
@@ -90,7 +86,9 @@ class _AppButtonState extends State<AppButton> {
         backgroundColor: MaterialStateProperty.all(const Color(0xFF1E232C)),
         minimumSize: MaterialStateProperty.all(const Size(double.infinity, 55)),
       ),
-      onPressed: () {},
+      onPressed: () {
+        widget.ontap();
+      },
       child: Text(
         widget.text,
         style: const TextStyle(color: Colors.white, fontSize: 18),

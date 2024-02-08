@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:translator_app/core/constants/routes.dart';
 
 class SplashPage extends StatefulWidget {
@@ -29,8 +28,8 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'lib/core/assets/splashphoto.svg',
+            Image.asset(
+              'lib/core/assets/splashphoto.jpg',
               fit: BoxFit.contain,
               height: 300,
             ),
