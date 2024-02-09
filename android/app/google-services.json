@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "466639011197",
+    "project_id": "translator-firebase-aa71f",
+    "storage_bucket": "translator-firebase-aa71f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466639011197:android:2401718a3456d4c0306014",
+        "android_client_info": {
+          "package_name": "com.example.translator_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8CkXNGLHavNPwI-39_g7dvhc831wWMRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

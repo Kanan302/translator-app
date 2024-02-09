@@ -1,7 +1,10 @@
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/widgets/widget.dart';
 
+// ignore_for_file: avoid_print
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -10,15 +13,28 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
   void _tologin() {
     Navigator.pushNamed(context, Routes.login.path);
   }
 
   void _tohome() {
-    Navigator.pushNamed(context, Routes.home.path);
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text)
+        .then((userCredential) {
+      Navigator.pushNamed(context, Routes.home.path);
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registration failed: ${error.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    });
   }
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +46,10 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Center(
             child: Column(
               children: [
-                Image.asset('lib/core/assets/worldmap.jpg'),
+                Image.asset(
+                  'lib/core/assets/worldmap.jpg',
+                  height: 230,
+                ),
                 const Padding(
                   padding:
                       EdgeInsets.only(top: 10, left: 20, right: 13, bottom: 8),
@@ -75,7 +94,21 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(
                         height: 17,
                       ),
-                      AppButton(text: 'Register', ontap: _tohome),
+                      AppButton(
+                          text: 'Register',
+                          ontap: () {
+                            if (_emailController.text.isEmpty ||
+                                _passwordController.text.length < 6) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                    'Please enter correct email or password'),
+                                backgroundColor: Colors.red,
+                              ));
+                            } else {
+                              _tohome();
+                            }
+                          }),
                       const SizedBox(height: 13),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -4,8 +4,14 @@ import 'package:translator_app/pages/homepage.dart';
 import 'package:translator_app/pages/login.dart';
 import 'package:translator_app/pages/register.dart';
 import 'package:translator_app/pages/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

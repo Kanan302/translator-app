@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/widgets/widget.dart';
 
+// ignore_for_file: avoid_print
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -15,7 +17,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _tohome() {
-    Navigator.pushNamed(context, Routes.home.path);
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text)
+        .then((value) => Navigator.pushNamed(context, Routes.home.path))
+        .onError((error, stackTrace) => print("Error ${error.toString()}"));
   }
 
   final _emailController = TextEditingController();
@@ -77,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         );
                       } else {
-                        _tohome;
+                        _tohome();
                       }
                     },
                   ),
