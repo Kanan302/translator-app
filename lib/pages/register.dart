@@ -1,10 +1,9 @@
 // import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/widgets/widget.dart';
 
-// ignore_for_file: avoid_print
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -17,24 +16,29 @@ class _RegisterPageState extends State<RegisterPage> {
     Navigator.pushNamed(context, Routes.login.path);
   }
 
-  void _tohome() {
-    FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-            email: _emailController.text, password: _passwordController.text)
-        .then((userCredential) {
+  void _tohome() async {
+    // await Firebase.initializeApp();
+    // await FirebaseAuth.instance
+    //     .createUserWithEmailAndPassword(
+    //         email: _emailTextController.text,
+    //         password: _passwordTextController.text)
+    //     .then((userCredential) {
       Navigator.pushNamed(context, Routes.home.path);
-    }).catchError((error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Registration failed: ${error.toString()}'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    });
+    // // }).catchError((error) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Registration failed: ${error.toString()}'),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    // });
   }
 
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  
+
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  final _confirmPasswordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         text: 'Enter your email',
                         prefixicon: Icons.email_outlined,
                         isPasswordType: false,
-                        controller: _emailController,
+                        controller: _emailTextController,
                       ),
                       const SizedBox(
                         height: 17,
@@ -78,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         text: 'Enter your password',
                         prefixicon: Icons.lock_outline,
                         isPasswordType: true,
-                        controller: _passwordController,
+                        controller: _passwordTextController,
                         suffixicon: Icons.remove_red_eye_outlined,
                       ),
                       const SizedBox(
@@ -88,7 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         text: 'Confirm your password',
                         prefixicon: Icons.lock_outline,
                         isPasswordType: true,
-                        controller: _passwordController,
+                        controller: _confirmPasswordTextController,
                         suffixicon: Icons.remove_red_eye_outlined,
                       ),
                       const SizedBox(
@@ -97,18 +101,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       AppButton(
                           text: 'Register',
                           ontap: () {
-                            if (_emailController.text.isEmpty ||
-                                _passwordController.text.length < 6) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text(
-                                    'Please enter correct email or password'),
-                                backgroundColor: Colors.red,
-                              ));
-                            } else {
-                              _tohome();
-                            }
-                          }),
+                            // if (_passwordTextController.text !=
+                            //     _confirmPasswordTextController.text) {
+                            //   ScaffoldMessenger.of(context)
+                            //       .showSnackBar(const SnackBar(
+                            //     content: Text(
+                            //         'Please enter correct email or password'),
+                            //     backgroundColor: Colors.red,
+                            //   ));
+                            // } else {
+                            _tohome();
+                          //   }
+                          }
+                          ),
                       const SizedBox(height: 13),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

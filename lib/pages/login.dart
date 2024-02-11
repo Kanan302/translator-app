@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/widgets/widget.dart';
@@ -17,11 +17,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _tohome() {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-            email: _emailController.text, password: _passwordController.text)
-        .then((value) => Navigator.pushNamed(context, Routes.home.path))
-        .onError((error, stackTrace) => print("Error ${error.toString()}"));
+    // FirebaseAuth.instance
+    //     .signInWithEmailAndPassword(
+    //         email: _emailController.text, password: _passwordController.text)
+    //     .then((value) =>
+    Navigator.pushNamed(context, Routes.home.path);
+    // )
+    // .onError((error, stackTrace) => print("Error ${error.toString()}"));
   }
 
   final _emailController = TextEditingController();
@@ -73,18 +75,18 @@ class _LoginPageState extends State<LoginPage> {
                   AppButton(
                     text: 'Login',
                     ontap: () {
-                      if (_emailController.text.isEmpty ||
-                          _passwordController.text.length < 6) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content:
-                                Text('Please enter correct email or password'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      } else {
-                        _tohome();
-                      }
+                      // if (_emailController.text.isEmpty ||
+                      //     _passwordController.text.length < 6) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     const SnackBar(
+                      //       content:
+                      //           Text('Please enter correct email or password'),
+                      //       backgroundColor: Colors.red,
+                      //     ),
+                      //   );
+                      // } else {
+                      _tohome();
+                      // }
                     },
                   ),
                   const SizedBox(
