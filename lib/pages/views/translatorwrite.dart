@@ -19,12 +19,14 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
     'English',
     'Russian',
     'Turkish',
-    'Arabic',
-    'Kazakh',
-    'Spanish'
+    'Italian',
+    'Spanish',
+    'German',
+    'French',
   ];
 
-  List<String> languagecodes = ['az', 'en', 'ru', 'tr', 'ar', 'kk', 'es'];
+  List<String> languagecodes = ['az', 'en', 'ru', 'tr', 'it', 'es', 'de', 'fr'];
+
   String selectedvalue = 'English';
   String nextselectedvalue = 'Azerbaijani';
   String from = 'en';
@@ -117,6 +119,8 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                                     from = languagecodes[5];
                                   } else if (lang == languages[6]) {
                                     from = languagecodes[6];
+                                  } else if (lang == languages[7]) {
+                                    from = languagecodes[7];
                                   }
                                   setState(() {
                                     print(lang);
@@ -205,6 +209,8 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                                     to = languagecodes[5];
                                   } else if (lang == languages[6]) {
                                     to = languagecodes[6];
+                                  } else if (lang == languages[7]) {
+                                    to = languagecodes[7];
                                   }
                                   setState(() {
                                     print(lang);

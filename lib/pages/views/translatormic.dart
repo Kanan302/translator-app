@@ -20,16 +20,22 @@ class _TranslatorMicState extends State<TranslatorMic> {
 
   Future<void> speak(String text) async {
     if (formkey.currentState!.validate()) {
-      await flutterTTS.setLanguage("en-US");
-      await flutterTTS.setVolume(0.8);
-      await flutterTTS.setSpeechRate(0.5);
-      await flutterTTS.setPitch(1);
+      await flutterTTS.setVolume(1);
+      await flutterTTS.setSpeechRate(0.9);
+      await flutterTTS.setPitch(0.9);
       await flutterTTS.speak(text);
     }
   }
 
   Future<void> translate() async {
     if (formkey.currentState!.validate()) {
+      from = languagecodes[languages.indexOf(selectedvalue)];
+      to = languagecodes[languages.indexOf(nextselectedvalue)];
+
+      if (ttsLanguageCodes.containsKey(to)) {
+        await flutterTTS.setLanguage(ttsLanguageCodes[to]!);
+      }
+
       await translator
           .translate(textController.text, from: from, to: to)
           .then((value) {
@@ -45,12 +51,24 @@ class _TranslatorMicState extends State<TranslatorMic> {
     'English',
     'Russian',
     'Turkish',
-    'Arabic',
-    'Kazakh',
-    'Spanish'
+    'Italian',
+    'Spanish',
+    'German',
+    'French',
   ];
 
-  List<String> languagecodes = ['az', 'en', 'ru', 'tr', 'ar', 'kk', 'es'];
+  List<String> languagecodes = ['az', 'en', 'ru', 'tr', 'it', 'es', 'de', 'fr'];
+
+  Map<String, String> ttsLanguageCodes = {
+    'az': 'az-AZ',
+    'en': 'en-US',
+    'ru': 'ru-RU',
+    'tr': 'tr-TR',
+    'it': 'it-IT',
+    'es': 'es-ES',
+    'de': 'de-DE',
+    'fr': 'fr-FR',
+  };
 
   String selectedvalue = 'English';
   String from = 'en';
@@ -68,6 +86,10 @@ class _TranslatorMicState extends State<TranslatorMic> {
     String tempValue = selectedvalue;
     selectedvalue = nextselectedvalue;
     nextselectedvalue = tempValue;
+
+    String tempText = textController.text;
+    textController.text = data;
+    data = tempText;
   }
 
   @override
@@ -119,6 +141,8 @@ class _TranslatorMicState extends State<TranslatorMic> {
                                         lang == languagecodes[5];
                                       } else if (from == languages[6]) {
                                         lang == languagecodes[6];
+                                      } else if (from == languages[7]) {
+                                        lang == languagecodes[7];
                                       }
                                       setState(() {
                                         print(from);
@@ -202,6 +226,8 @@ class _TranslatorMicState extends State<TranslatorMic> {
                                         lang == languagecodes[5];
                                       } else if (to == languages[6]) {
                                         lang == languagecodes[6];
+                                      } else if (to == languages[7]) {
+                                        lang == languagecodes[7];
                                       }
                                       setState(() {
                                         print(to);
