@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:translator_app/pages/views/nav_bar.dart';
-import 'package:translator_app/pages/views/translatorcamera.dart';
+import 'package:translator_app/pages/views/translatorgal.dart';
 import 'package:translator_app/pages/views/translatormic.dart';
 import 'package:translator_app/pages/views/translatorwrite.dart';
 
@@ -22,8 +22,8 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     const TranslatorWrite(),
-    const TranslatorCamera(),
     const TranslatorMic(),
+    const TranslatorGallery(),
   ];
 
   @override

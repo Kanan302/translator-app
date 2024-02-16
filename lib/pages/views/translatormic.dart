@@ -21,8 +21,8 @@ class _TranslatorMicState extends State<TranslatorMic> {
   Future<void> speak(String text) async {
     if (formkey.currentState!.validate()) {
       await flutterTTS.setVolume(1);
-      await flutterTTS.setSpeechRate(0.9);
-      await flutterTTS.setPitch(0.9);
+      await flutterTTS.setSpeechRate(0.6);
+      await flutterTTS.setPitch(0.7);
       await flutterTTS.speak(text);
     }
   }
@@ -161,7 +161,7 @@ class _TranslatorMicState extends State<TranslatorMic> {
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.3),
+                        color: Colors.grey.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.black)),
                     child: Form(

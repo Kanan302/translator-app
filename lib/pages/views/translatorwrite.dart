@@ -140,7 +140,7 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                   padding: const EdgeInsets.all(20),
                   margin: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       color: Colors.grey.withOpacity(0.2),
                       border: Border.all(color: Colors.black)),
                   child: Form(
@@ -231,7 +231,7 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                   margin: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     color: Colors.grey.withOpacity(0.2),
                   ),
                   child: Center(
