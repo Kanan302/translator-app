@@ -1,5 +1,6 @@
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/widgets/widget.dart';
 
@@ -12,22 +13,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  void _toregister() {
+  void toRegister() {
     Navigator.pushNamed(context, Routes.register.path);
   }
 
-  void _tohome() {
-    // FirebaseAuth.instance
-    //     .signInWithEmailAndPassword(
-    //         email: _emailController.text, password: _passwordController.text)
-    //     .then((value) =>
-    Navigator.pushNamed(context, Routes.home.path);
-    // )
-    // .onError((error, stackTrace) => print("Error ${error.toString()}"));
+  Future<void> toHome() async {
+    await Firebase.initializeApp();
+    final email = emailController.text;
+    final password = passwordController.text;
+    debugPrint('Email: $email');
+    debugPrint('Password: $password');
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((value) => Navigator.pushNamed(context, Routes.home.path))
+        .onError((error, stackTrace) => print("Error ${error.toString()}"));
   }
 
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -53,21 +58,71 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(children: [
-                  AppTextField(
-                    text: 'Enter your email',
-                    prefixicon: Icons.email_outlined,
-                    isPasswordType: false,
-                    controller: _emailController,
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Enter your email',
+                      hintStyle: const TextStyle(
+                          fontSize: 18, color: Color(0xFF8391A1)),
+                      prefixIcon: const Padding(
+                        padding: EdgeInsets.only(left: 15, right: 10),
+                        child: Icon(
+                          Icons.email_outlined,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(197, 101, 94, 94)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(197, 101, 94, 94)),
+                      ),
+                    ),
+                    controller: emailController,
                   ),
                   const SizedBox(
                     height: 17,
                   ),
-                  AppTextField(
-                    text: 'Enter your password',
-                    prefixicon: Icons.lock_outline_rounded,
-                    isPasswordType: true,
-                    suffixicon: Icons.remove_red_eye_outlined,
-                    controller: _passwordController,
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Enter your password',
+                      hintStyle: const TextStyle(
+                          fontSize: 18, color: Color(0xFF8391A1)),
+                      prefixIcon: const Padding(
+                        padding: EdgeInsets.only(left: 15, right: 10),
+                        child: Icon(
+                          Icons.lock_outline,
+                        ),
+                      ),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: IconButton(
+                          icon: Icon(_isObscured
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              _isObscured = !_isObscured;
+                            });
+                          },
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(197, 101, 94, 94)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(197, 101, 94, 94)),
+                      ),
+                    ),
+                    obscureText: _isObscured,
+                    obscuringCharacter: '*',
+                    controller: passwordController,
                   ),
                   const SizedBox(
                     height: 17,
@@ -75,18 +130,18 @@ class _LoginPageState extends State<LoginPage> {
                   AppButton(
                     text: 'Login',
                     ontap: () {
-                      // if (_emailController.text.isEmpty ||
-                      //     _passwordController.text.length < 6) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content:
-                      //           Text('Please enter correct email or password'),
-                      //       backgroundColor: Colors.red,
-                      //     ),
-                      //   );
-                      // } else {
-                      _tohome();
-                      // }
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.length < 6) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('Please enter correct email or password'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      } else {
+                        toHome();
+                      }
                     },
                   ),
                   const SizedBox(
@@ -101,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 14)),
                       GestureDetector(
-                        onTap: _toregister,
+                        onTap: toRegister,
                         child: const Text(
                           'Sign up',
                           style: TextStyle(

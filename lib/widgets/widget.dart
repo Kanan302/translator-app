@@ -26,7 +26,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextField(
       decoration: InputDecoration(
         hintText: widget.text,
         hintStyle: const TextStyle(fontSize: 18, color: Color(0xFF8391A1)),
