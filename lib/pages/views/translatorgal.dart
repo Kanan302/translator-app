@@ -195,10 +195,7 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                                   } else if (lang == languages[7]) {
                                     to = languagecodes[7];
                                   }
-                                  setState(() {
-                                    print(lang);
-                                    print(to);
-                                  });
+                                  setState(() {});
                                 },
                               );
                             }).toList(),

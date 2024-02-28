@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:translator_app/bloc/eyes_bloc.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/widgets/widget.dart';
 
@@ -16,8 +18,8 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passwordTextController = TextEditingController();
   TextEditingController confirmPasswordTextController = TextEditingController();
 
-  bool _isObscuredPassword = true;
-  bool _isObscuredConfirmPassword = true;
+  bool isObscuredPassword = true;
+  bool isObscuredConfirmPassword = true;
 
   Future<void> toHome() async {
     await Firebase.initializeApp();
@@ -63,6 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 TextField(
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: 'Enter your email',
                     hintStyle:
@@ -89,91 +92,102 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 17,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Enter your password',
-                    hintStyle:
-                        const TextStyle(fontSize: 18, color: Color(0xFF8391A1)),
-                    prefixIcon: const Padding(
-                      padding: EdgeInsets.only(left: 15, right: 10),
-                      child: Icon(
-                        Icons.lock_outline,
-                      ),
-                    ),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: IconButton(
-                        icon: Icon(
-                          _isObscuredPassword
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                BlocBuilder<EyesBloc, EyesState>(
+                  builder: (context, state) {
+                    if (state is EyesLoading) {
+                      isObscuredPassword = state.selected;
+                    }
+                    return TextField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        hintText: 'Enter your password',
+                        hintStyle: const TextStyle(
+                            fontSize: 18, color: Color(0xFF8391A1)),
+                        prefixIcon: const Padding(
+                          padding: EdgeInsets.only(left: 15, right: 10),
+                          child: Icon(
+                            Icons.lock_outline,
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _isObscuredPassword = !_isObscuredPassword;
-                          });
-                        },
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: IconButton(
+                            icon: Icon(
+                              isObscuredPassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              context.read<EyesBloc>().add(EyesVisibility());
+                            },
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(197, 101, 94, 94)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(197, 101, 94, 94)),
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(197, 101, 94, 94)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(197, 101, 94, 94)),
-                    ),
-                  ),
-                  obscureText: _isObscuredPassword,
-                  obscuringCharacter: '*',
-                  controller: passwordTextController,
+                      obscureText: isObscuredPassword,
+                      obscuringCharacter: '*',
+                      controller: passwordTextController,
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 17,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Confirm your password',
-                    hintStyle:
-                        const TextStyle(fontSize: 18, color: Color(0xFF8391A1)),
-                    prefixIcon: const Padding(
-                      padding: EdgeInsets.only(left: 15, right: 10),
-                      child: Icon(
-                        Icons.lock_outline,
-                      ),
-                    ),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: IconButton(
-                        icon: Icon(
-                          _isObscuredConfirmPassword
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                BlocBuilder<EyesBloc, EyesState>(
+                  builder: (context, state) {
+                    if (state is ConfirmEyesLoading) {
+                      isObscuredConfirmPassword = state.selected;
+                    }
+                    return TextField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        hintText: 'Confirm your password',
+                        hintStyle: const TextStyle(
+                            fontSize: 18, color: Color(0xFF8391A1)),
+                        prefixIcon: const Padding(
+                          padding: EdgeInsets.only(left: 15, right: 10),
+                          child: Icon(
+                            Icons.lock_outline,
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _isObscuredConfirmPassword =
-                                !_isObscuredConfirmPassword;
-                          });
-                        },
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: IconButton(
+                            icon: Icon(
+                              isObscuredConfirmPassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              context.read<EyesBloc>().add(ConfirmVisibility());
+                            },
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(197, 101, 94, 94)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(197, 101, 94, 94)),
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(197, 101, 94, 94)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(197, 101, 94, 94)),
-                    ),
-                  ),
-                  obscureText: _isObscuredConfirmPassword,
-                  obscuringCharacter: '*',
-                  controller: confirmPasswordTextController,
+                      obscureText: isObscuredConfirmPassword,
+                      obscuringCharacter: '*',
+                      controller: confirmPasswordTextController,
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 17,

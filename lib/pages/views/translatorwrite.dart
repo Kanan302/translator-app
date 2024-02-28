@@ -122,10 +122,7 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                                   } else if (lang == languages[7]) {
                                     from = languagecodes[7];
                                   }
-                                  setState(() {
-                                    print(lang);
-                                    print(from);
-                                  });
+                                  setState(() {});
                                 },
                               );
                             }).toList(),
@@ -212,10 +209,7 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                                   } else if (lang == languages[7]) {
                                     to = languagecodes[7];
                                   }
-                                  setState(() {
-                                    print(lang);
-                                    print(to);
-                                  });
+                                  setState(() {});
                                 },
                               );
                             }).toList(),

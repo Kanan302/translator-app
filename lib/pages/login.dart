@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:translator_app/bloc/eyes_bloc.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/widgets/widget.dart';
 
@@ -32,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  bool _isObscured = true;
+  bool isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(20),
                 child: Column(children: [
                   TextField(
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
                       hintStyle: const TextStyle(
@@ -85,44 +88,50 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 17,
                   ),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your password',
-                      hintStyle: const TextStyle(
-                          fontSize: 18, color: Color(0xFF8391A1)),
-                      prefixIcon: const Padding(
-                        padding: EdgeInsets.only(left: 15, right: 10),
-                        child: Icon(
-                          Icons.lock_outline,
+                  BlocBuilder<EyesBloc, EyesState>(
+                    builder: (context, state) {
+                      if (state is EyesLoading) {
+                        isObscured = state.selected;
+                      }
+                      return TextField(
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your password',
+                          hintStyle: const TextStyle(
+                              fontSize: 18, color: Color(0xFF8391A1)),
+                          prefixIcon: const Padding(
+                            padding: EdgeInsets.only(left: 15, right: 10),
+                            child: Icon(
+                              Icons.lock_outline,
+                            ),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 15),
+                            child: IconButton(
+                              icon: Icon(isObscured
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                              onPressed: () {
+                                context.read<EyesBloc>().add(EyesVisibility());
+                              },
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(197, 101, 94, 94)),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(197, 101, 94, 94)),
+                          ),
                         ),
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: IconButton(
-                          icon: Icon(_isObscured
-                              ? Icons.visibility_off
-                              : Icons.visibility),
-                          onPressed: () {
-                            setState(() {
-                              _isObscured = !_isObscured;
-                            });
-                          },
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(197, 101, 94, 94)),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(197, 101, 94, 94)),
-                      ),
-                    ),
-                    obscureText: _isObscured,
-                    obscuringCharacter: '*',
-                    controller: passwordController,
+                        obscureText: isObscured,
+                        obscuringCharacter: '*',
+                        controller: passwordController,
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 17,

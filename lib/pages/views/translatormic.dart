@@ -144,10 +144,7 @@ class _TranslatorMicState extends State<TranslatorMic> {
                                       } else if (from == languages[7]) {
                                         lang == languagecodes[7];
                                       }
-                                      setState(() {
-                                        print(from);
-                                        print(lang);
-                                      });
+                                      setState(() {});
                                     });
                               }).toList(),
                               onChanged: (value) {
@@ -229,10 +226,7 @@ class _TranslatorMicState extends State<TranslatorMic> {
                                       } else if (to == languages[7]) {
                                         lang == languagecodes[7];
                                       }
-                                      setState(() {
-                                        print(to);
-                                        print(lang);
-                                      });
+                                      setState(() {});
                                     });
                               }).toList(),
                               onChanged: (value) {
