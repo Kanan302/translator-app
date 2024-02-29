@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // ignore: unused_field
   int _selectindex = 0;
   void navigateBottomBar(int index) {
     setState(() {

@@ -6,7 +6,6 @@ import 'package:translator_app/bloc/eyes_bloc.dart';
 import 'package:translator_app/core/constants/routes.dart';
 import 'package:translator_app/widgets/widget.dart';
 
-// ignore_for_file: avoid_print
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -28,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) => Navigator.pushNamed(context, Routes.home.path))
-        .onError((error, stackTrace) => print("Error ${error.toString()}"));
+        .onError((error, stackTrace) => "Error ${error.toString()}");
   }
 
   TextEditingController emailController = TextEditingController();

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 import 'package:translator_app/widgets/widget.dart';
 
-// ignore_for_file: avoid_print
 class TranslatorWrite extends StatefulWidget {
   const TranslatorWrite({super.key});
 

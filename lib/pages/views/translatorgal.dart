@@ -5,8 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:translator/translator.dart';
 import 'package:translator_app/widgets/widget.dart';
 
-// ignore_for_file: avoid_print
-// ignore_for_file: prefer_interpolation_to_compose_strings
 
 class TranslatorGallery extends StatefulWidget {
   const TranslatorGallery({super.key});
@@ -64,7 +62,7 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
     scannedText = "";
     for (TextBlock block in recognisedText.blocks) {
       for (TextLine line in block.lines) {
-        scannedText += line.text + "\n";
+        scannedText += "${line.text}\n";
       }
     }
 
