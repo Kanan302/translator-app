@@ -9,7 +9,6 @@ import 'package:translator_app/pages/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// ignore_for_file: avoid_print
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -18,7 +17,7 @@ Future<void> main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   } catch (e) {
-    print('Firebase initialization error: $e');
+    'Firebase initialization error: $e';
   }
 
   runApp(MyApp());
