@@ -25,8 +25,6 @@ class _RegisterPageState extends State<RegisterPage> {
     await Firebase.initializeApp();
     final email = emailTextController.text;
     final password = passwordTextController.text;
-    debugPrint('Email: $email');
-    debugPrint('Password: $password');
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((userCredential) {
@@ -44,194 +42,150 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Image.asset(
-                  'lib/core/assets/worldmap.jpg',
-                  height: 230,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 8),
-                  child: Text(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Center(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  const Text(
                     'Welcome! Create a new account.',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 27,
                     ),
                   ),
-                ),
-                TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your email',
-                    hintStyle:
-                        const TextStyle(fontSize: 18, color: Color(0xFF8391A1)),
-                    prefixIcon: const Padding(
-                      padding: EdgeInsets.only(left: 15, right: 10),
-                      child: Icon(
-                        Icons.email_outlined,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(197, 101, 94, 94)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(197, 101, 94, 94)),
-                    ),
+                  const SizedBox(
+                    height: 40,
                   ),
-                  controller: emailTextController,
-                ),
-                const SizedBox(
-                  height: 17,
-                ),
-                BlocBuilder<EyesBloc, EyesState>(
-                  builder: (context, state) {
-                    if (state is EyesLoading) {
-                      isObscuredPassword = state.selected;
-                    }
-                    return TextField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        hintText: 'Enter your password',
-                        hintStyle: const TextStyle(
-                            fontSize: 18, color: Color(0xFF8391A1)),
-                        prefixIcon: const Padding(
-                          padding: EdgeInsets.only(left: 15, right: 10),
-                          child: Icon(
-                            Icons.lock_outline,
-                          ),
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: IconButton(
-                            icon: Icon(
-                              isObscuredPassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                            ),
-                            onPressed: () {
-                              context.read<EyesBloc>().add(EyesVisibility());
-                            },
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(197, 101, 94, 94)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(197, 101, 94, 94)),
-                        ),
-                      ),
-                      obscureText: isObscuredPassword,
-                      obscuringCharacter: '*',
-                      controller: passwordTextController,
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 17,
-                ),
-                BlocBuilder<EyesBloc, EyesState>(
-                  builder: (context, state) {
-                    if (state is ConfirmEyesLoading) {
-                      isObscuredConfirmPassword = state.selected;
-                    }
-                    return TextField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        hintText: 'Confirm your password',
-                        hintStyle: const TextStyle(
-                            fontSize: 18, color: Color(0xFF8391A1)),
-                        prefixIcon: const Padding(
-                          padding: EdgeInsets.only(left: 15, right: 10),
-                          child: Icon(
-                            Icons.lock_outline,
-                          ),
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: IconButton(
-                            icon: Icon(
-                              isObscuredConfirmPassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                            ),
-                            onPressed: () {
-                              context.read<EyesBloc>().add(ConfirmVisibility());
-                            },
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(197, 101, 94, 94)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(197, 101, 94, 94)),
-                        ),
-                      ),
-                      obscureText: isObscuredConfirmPassword,
-                      obscuringCharacter: '*',
-                      controller: confirmPasswordTextController,
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 17,
-                ),
-                AppButton(
-                  text: 'Register',
-                  ontap: () {
-                    if (passwordTextController.text !=
-                            confirmPasswordTextController.text ||
-                        passwordTextController.text.length < 6) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                              'Password must be minimum of 6 characters and match the confirmation password'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    } else {
-                      toHome();
-                    }
-                  },
-                ),
-                const SizedBox(height: 13),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Already have an account? ',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Email',
                         style: TextStyle(
-                            color: Color(0xFF6A707C),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14)),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.login.path);
-                      },
-                      child: const Text('Sign in',
-                          style: TextStyle(
-                              color: Color(0xFF1E232C),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold)),
-                    )
-                  ],
-                )
-              ],
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      AppTextField(
+                          hintText: 'Enter your email',
+                          controller: emailTextController,
+                          obscureText: false,
+                          prefixIcon: Icons.email_outlined,
+                          onPressed: null),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Password',
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      BlocBuilder<EyesBloc, EyesState>(
+                        builder: (context, state) {
+                          if (state is EyesLoading) {
+                            isObscuredPassword = state.selected;
+                          }
+                          return AppTextField(
+                              hintText: 'Enter your password',
+                              controller: passwordTextController,
+                              obscureText: isObscuredPassword,
+                              prefixIcon: Icons.lock_outline,
+                              onPressed: () => context
+                                  .read<EyesBloc>()
+                                  .add(EyesVisibility()));
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Password',
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      BlocBuilder<EyesBloc, EyesState>(
+                        builder: (context, state) {
+                          if (state is ConfirmEyesLoading) {
+                            isObscuredConfirmPassword = state.selected;
+                          }
+                          return AppTextField(
+                              hintText: 'Confirm your password',
+                              controller: confirmPasswordTextController,
+                              obscureText: isObscuredConfirmPassword,
+                              prefixIcon: Icons.lock_outline,
+                              onPressed: () => context
+                                  .read<EyesBloc>()
+                                  .add(ConfirmVisibility()));
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  AppButton(
+                    text: 'SIGN UP',
+                    ontap: () {
+                      if (passwordTextController.text !=
+                              confirmPasswordTextController.text ||
+                          !emailTextController.text.contains("@gmail.com")) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Password must be minimum of 6 characters and write correct email please'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      } else {
+                        toHome();
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 13),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Already have an account? ',
+                          style:
+                              TextStyle(color: Colors.grey[400], fontSize: 14)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.login.path);
+                        },
+                        child: const Text('Sign in',
+                            style: TextStyle(
+                                color: Color(0xFF1E232C),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold)),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

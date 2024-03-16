@@ -1,98 +1,84 @@
 import 'package:flutter/material.dart';
 
-// ignore_for_file: library_private_types_in_public_api
-class AppTextField extends StatefulWidget {
-  final String text;
-  final IconData prefixicon;
-  final bool isPasswordType;
-  final IconData? suffixicon;
-  final TextEditingController controller;
-
-  const AppTextField({
-    Key? key,
-    required this.text,
-    required this.prefixicon,
-    required this.isPasswordType,
-    required this.controller,
-    this.suffixicon,
-  }) : super(key: key);
-
-  @override
-  _AppTextFieldState createState() => _AppTextFieldState();
-}
-
-class _AppTextFieldState extends State<AppTextField> {
-  bool _isObscured = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: widget.text,
-        hintStyle: const TextStyle(fontSize: 18, color: Color(0xFF8391A1)),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 10),
-          child: Icon(
-            widget.prefixicon,
-          ),
-        ),
-        suffixIcon: Padding(
-          padding: const EdgeInsets.only(right: 15),
-          child: widget.suffixicon != null
-              ? IconButton(
-                  icon: Icon(widget.suffixicon),
-                  onPressed: () {
-                    _toggleObscureText();
-                  },
-                )
-              : null,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(color: Color.fromARGB(197, 101, 94, 94)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(color: Color.fromARGB(197, 101, 94, 94)),
-        ),
-      ),
-      obscureText: widget.isPasswordType ? _isObscured : false,
-      obscuringCharacter: '*',
-    );
-  }
-
-  void _toggleObscureText() {
-    setState(() {
-      _isObscured = !_isObscured;
-    });
-  }
-}
-
-class AppButton extends StatefulWidget {
+class AppButton extends StatelessWidget {
   final String text;
   final Function ontap;
 
   const AppButton({required this.text, super.key, required this.ontap});
 
   @override
-  State<AppButton> createState() => _AppButtonState();
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 130,
+      height: 35,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(const Color(0xFF1E232C)),
+        ),
+        onPressed: () {
+          ontap();
+        },
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white, fontSize: 15),
+        ),
+      ),
+    );
+  }
 }
 
-class _AppButtonState extends State<AppButton> {
+class AppTextField extends StatelessWidget {
+  final String hintText;
+  final TextEditingController controller;
+  final bool obscureText;
+  final IconData prefixIcon;
+  final VoidCallback? onPressed;
+
+  const AppTextField({
+    Key? key,
+    required this.hintText,
+    required this.controller,
+    required this.obscureText,
+    required this.prefixIcon,
+    required this.onPressed,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color(0xFF1E232C)),
-        minimumSize: MaterialStateProperty.all(const Size(double.infinity, 55)),
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          fontSize: 16,
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+        ),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 15, right: 10),
+          child: Icon(prefixIcon),
+        ),
+        suffixIcon: onPressed != null
+            ? Padding(
+                padding: const EdgeInsets.only(right: 15),
+                child: IconButton(
+                  icon: Icon(
+                    obscureText ? Icons.visibility_off : Icons.visibility,
+                  ),
+                  onPressed: onPressed,
+                ),
+              )
+            : null,
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color.fromARGB(197, 101, 94, 94)),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color.fromARGB(197, 101, 94, 94)),
+        ),
       ),
-      onPressed: () {
-        widget.ontap();
-      },
-      child: Text(
-        widget.text,
-        style: const TextStyle(color: Colors.white, fontSize: 18),
-      ),
+      obscureText: obscureText,
+      controller: controller,
+      obscuringCharacter: obscureText ? '•' : ' ',
     );
   }
 }

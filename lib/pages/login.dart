@@ -22,8 +22,6 @@ class _LoginPageState extends State<LoginPage> {
     await Firebase.initializeApp();
     final email = emailController.text;
     final password = passwordController.text;
-    debugPrint('Email: $email');
-    debugPrint('Password: $password');
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) => Navigator.pushNamed(context, Routes.home.path))
@@ -38,149 +36,124 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey.shade100,
         body: SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 12.0),
-          child: Column(
-            children: [
-              Image.asset('lib/core/assets/worldmap.jpg'),
-              const Padding(
-                padding:
-                    EdgeInsets.only(top: 10, left: 20, right: 13, bottom: 8),
-                child: Text(
-                  'Welcome back! Glad to see you, Again!',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(children: [
-                  TextField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: 'Enter your email',
-                      hintStyle: const TextStyle(
-                          fontSize: 18, color: Color(0xFF8391A1)),
-                      prefixIcon: const Padding(
-                        padding: EdgeInsets.only(left: 15, right: 10),
-                        child: Icon(
-                          Icons.email_outlined,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(197, 101, 94, 94)),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(197, 101, 94, 94)),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Center(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    const Text(
+                      'Welcome back! Glad to see you, Again!',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 27,
                       ),
                     ),
-                    controller: emailController,
-                  ),
-                  const SizedBox(
-                    height: 17,
-                  ),
-                  BlocBuilder<EyesBloc, EyesState>(
-                    builder: (context, state) {
-                      if (state is EyesLoading) {
-                        isObscured = state.selected;
-                      }
-                      return TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: 'Enter your password',
-                          hintStyle: const TextStyle(
-                              fontSize: 18, color: Color(0xFF8391A1)),
-                          prefixIcon: const Padding(
-                            padding: EdgeInsets.only(left: 15, right: 10),
-                            child: Icon(
-                              Icons.lock_outline,
-                            ),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: IconButton(
-                              icon: Icon(isObscured
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                              onPressed: () {
-                                context.read<EyesBloc>().add(EyesVisibility());
-                              },
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(197, 101, 94, 94)),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(197, 101, 94, 94)),
-                          ),
-                        ),
-                        obscureText: isObscured,
-                        obscuringCharacter: '*',
-                        controller: passwordController,
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 17,
-                  ),
-                  AppButton(
-                    text: 'Login',
-                    ontap: () {
-                      if (emailController.text.isEmpty ||
-                          passwordController.text.length < 6) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content:
-                                Text('Please enter correct email or password'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      } else {
-                        toHome();
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 13,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have an account? ",
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Email',
                           style: TextStyle(
-                              color: Color(0xFF6A707C),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
-                      GestureDetector(
-                        onTap: toRegister,
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(
-                              color: Color(0xFF1E232C),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                      )
-                    ],
-                  )
-                ]),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        AppTextField(
+                          hintText: 'Enter your email',
+                          controller: emailController,
+                          obscureText: false,
+                          prefixIcon: Icons.email_outlined,
+                          onPressed: null,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Password',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        BlocBuilder<EyesBloc, EyesState>(
+                          builder: (context, state) {
+                            if (state is EyesLoading) {
+                              isObscured = state.selected;
+                            }
+                            return AppTextField(
+                                hintText: 'Enter your password',
+                                controller: passwordController,
+                                obscureText: isObscured,
+                                prefixIcon: Icons.lock_outline,
+                                onPressed: () => context
+                                    .read<EyesBloc>()
+                                    .add(EyesVisibility()));
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    AppButton(
+                      text: 'LOG IN',
+                      ontap: () {
+                        if (emailController.text.isEmpty ||
+                            !emailController.text.contains('@gmail.com')) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Please enter correct email or password'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else {
+                          toHome();
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 13,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Don't have an account? ",
+                            style: TextStyle(
+                                color: Colors.grey[400], fontSize: 14)),
+                        GestureDetector(
+                          onTap: toRegister,
+                          child: const Text(
+                            'Sign up',
+                            style: TextStyle(
+                                color: Color(0xFF1E232C),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }
