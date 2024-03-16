@@ -79,6 +79,7 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       body: SafeArea(
           child: SingleChildScrollView(
         child: Center(
@@ -131,96 +132,71 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey.withOpacity(0.2),
-                  ),
-                  child: Center(
-                    child: SelectableText(
-                      scannedText,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Text(
-                        'To',
+                AppSecondContainer(text: scannedText),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 35),
+                      child: const Text(
+                        'TO',
                         style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.black,
-                        ),
+                            fontSize: 14, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(
-                        width: 120,
-                      ),
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                            value: nextselectedvalue,
-                            focusColor: Colors.white,
-                            items: languages.map((lang) {
-                              return DropdownMenuItem<String>(
-                                value: lang,
-                                child: Text(lang),
-                                onTap: () {
-                                  if (lang == languages[0]) {
-                                    to = languagecodes[0];
-                                  } else if (lang == languages[1]) {
-                                    to = languagecodes[1];
-                                  } else if (lang == languages[2]) {
-                                    to = languagecodes[2];
-                                  } else if (lang == languages[3]) {
-                                    to = languagecodes[3];
-                                  } else if (lang == languages[4]) {
-                                    to = languagecodes[4];
-                                  } else if (lang == languages[5]) {
-                                    to = languagecodes[5];
-                                  } else if (lang == languages[6]) {
-                                    to = languagecodes[6];
-                                  } else if (lang == languages[7]) {
-                                    to = languagecodes[7];
-                                  }
-                                  setState(() {});
-                                },
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              nextselectedvalue = value!;
-                            }),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey.withOpacity(0.2),
-                  ),
-                  child: Center(
-                    child: SelectableText(
-                      data,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
                     ),
-                  ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                        margin: const EdgeInsets.only(left: 30, right: 30),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: const LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Color.fromRGBO(177, 43, 80, 10),
+                                  Color.fromRGBO(218, 141, 86, 10),
+                                ])),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                              isExpanded: true,
+                              value: nextselectedvalue,
+                              focusColor: Colors.white,
+                              items: languages.map((lang) {
+                                return DropdownMenuItem(
+                                  value: lang,
+                                  child: Text(lang),
+                                  onTap: () {
+                                    if (lang == languages[0]) {
+                                      to = languagecodes[0];
+                                    } else if (lang == languages[1]) {
+                                      to = languagecodes[1];
+                                    } else if (lang == languages[2]) {
+                                      to = languagecodes[2];
+                                    } else if (lang == languages[3]) {
+                                      to = languagecodes[3];
+                                    } else if (lang == languages[4]) {
+                                      to = languagecodes[4];
+                                    } else if (lang == languages[5]) {
+                                      to = languagecodes[5];
+                                    } else if (lang == languages[6]) {
+                                      to = languagecodes[6];
+                                    } else if (lang == languages[7]) {
+                                      to = languagecodes[7];
+                                    }
+                                    setState(() {});
+                                  },
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                nextselectedvalue = value!;
+                              }),
+                        )),
+                  ],
                 ),
+                AppSecondContainer(text: data),
                 const SizedBox(
                   height: 30,
                 ),
