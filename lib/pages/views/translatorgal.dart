@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:translator/translator.dart';
 import 'package:translator_app/widgets/widget.dart';
 
-
 class TranslatorGallery extends StatefulWidget {
   const TranslatorGallery({super.key});
 
@@ -225,7 +224,11 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                 const SizedBox(
                   height: 30,
                 ),
-                AppButton(text: "Translate", ontap: translate),
+                AppButton(
+                  text: "Translate",
+                  ontap: translate,
+                  buttonColor: Colors.black,
+                ),
               ],
             ),
           ),

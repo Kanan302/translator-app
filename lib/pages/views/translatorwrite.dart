@@ -240,7 +240,11 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                 const SizedBox(
                   height: 30,
                 ),
-                AppButton(text: "Translate", ontap: translate),
+                AppButton(
+                  text: "Translate",
+                  ontap: translate,
+                  buttonColor: Colors.black,
+                ),
               ],
             ),
           ),

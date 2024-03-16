@@ -164,6 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         toHome();
                       }
                     },
+                    buttonColor: Colors.black,
                   ),
                   const SizedBox(height: 13),
                   Row(
@@ -171,7 +172,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       Text('Already have an account? ',
                           style:
-                              TextStyle(color: Colors.grey[400], fontSize: 14)),
+                              TextStyle(color: Colors.grey[600], fontSize: 14)),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.login.path);

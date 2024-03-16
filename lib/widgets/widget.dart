@@ -3,24 +3,32 @@ import 'package:flutter/material.dart';
 class AppButton extends StatelessWidget {
   final String text;
   final Function ontap;
+  final Color buttonColor;
 
-  const AppButton({required this.text, super.key, required this.ontap});
+  const AppButton(
+      {required this.text,
+      super.key,
+      required this.ontap,
+      required this.buttonColor});
 
   @override
   Widget build(BuildContext context) {
+    Color textColor = buttonColor == Colors.black ? Colors.white : Colors.black;
+
     return SizedBox(
-      width: 130,
+      width: 140,
       height: 35,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(const Color(0xFF1E232C)),
+          backgroundColor: MaterialStateProperty.all(buttonColor),
         ),
         onPressed: () {
           ontap();
         },
         child: Text(
           text,
-          style: const TextStyle(color: Colors.white, fontSize: 15),
+          style: TextStyle(
+              color: textColor, fontSize: 15, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -70,10 +78,10 @@ class AppTextField extends StatelessWidget {
               )
             : null,
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(197, 101, 94, 94)),
+          borderSide: BorderSide(color: Colors.black),
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(197, 101, 94, 94)),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade700),
         ),
       ),
       obscureText: obscureText,

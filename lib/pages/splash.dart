@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:translator_app/core/constants/routes.dart';
+import 'package:translator_app/widgets/widget.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -10,34 +11,52 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   @override
-  void initState() {
-    super.initState();
-    _navigate(context);
-  }
-
-  void _navigate(BuildContext context) {
-    Future.delayed(const Duration(seconds: 4), () {
-      Navigator.pushNamed(context, Routes.login.path);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'lib/core/assets/splashphoto.jpg',
-              fit: BoxFit.contain,
-              height: 300,
+      body: SafeArea(
+        child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFFFFFFF), Color(0xFF2C3546)],
+          )),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Translate Mate',
+                      style: TextStyle(
+                          color: Color(0xFF3B6DA9),
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Your Translator Friend',
+                      style: TextStyle(color: Color(0xFF928893), fontSize: 18),
+                    ),
+                  ],
+                ),
+                Image.asset(
+                  'lib/core/assets/3dicons.png',
+                  fit: BoxFit.contain,
+                  height: 300,
+                  width: 300,
+                ),
+                AppButton(
+                    text: 'Click To Start',
+                    ontap: () =>
+                        Navigator.pushNamed(context, Routes.login.path),
+                    buttonColor: Colors.white)
+              ],
             ),
-            const Text(
-              'Language Translator',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-          ],
+          ),
         ),
       ),
     );

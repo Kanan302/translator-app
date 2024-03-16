@@ -127,6 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                           toHome();
                         }
                       },
+                      buttonColor: Colors.black,
                     ),
                     const SizedBox(
                       height: 13,
@@ -136,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text("Don't have an account? ",
                             style: TextStyle(
-                                color: Colors.grey[400], fontSize: 14)),
+                                color: Colors.grey[600], fontSize: 14)),
                         GestureDetector(
                           onTap: toRegister,
                           child: const Text(
