@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:translator/translator.dart';
-import 'package:translator_app/widgets/widget.dart';
+import 'package:translator_app/widgets/button.dart';
+import 'package:translator_app/widgets/container.dart';
+import 'package:translator_app/widgets/dropdown.dart';
 
 class TranslatorGallery extends StatefulWidget {
   const TranslatorGallery({super.key});
@@ -147,53 +149,32 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                     const SizedBox(
                       height: 8,
                     ),
-                    Container(
-                        margin: const EdgeInsets.only(left: 30, right: 30),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: const LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color.fromRGBO(177, 43, 80, 10),
-                                  Color.fromRGBO(218, 141, 86, 10),
-                                ])),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                              isExpanded: true,
-                              value: nextselectedvalue,
-                              focusColor: Colors.white,
-                              items: languages.map((lang) {
-                                return DropdownMenuItem(
-                                  value: lang,
-                                  child: Text(lang),
-                                  onTap: () {
-                                    if (lang == languages[0]) {
-                                      to = languagecodes[0];
-                                    } else if (lang == languages[1]) {
-                                      to = languagecodes[1];
-                                    } else if (lang == languages[2]) {
-                                      to = languagecodes[2];
-                                    } else if (lang == languages[3]) {
-                                      to = languagecodes[3];
-                                    } else if (lang == languages[4]) {
-                                      to = languagecodes[4];
-                                    } else if (lang == languages[5]) {
-                                      to = languagecodes[5];
-                                    } else if (lang == languages[6]) {
-                                      to = languagecodes[6];
-                                    } else if (lang == languages[7]) {
-                                      to = languagecodes[7];
-                                    }
-                                    setState(() {});
-                                  },
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                nextselectedvalue = value!;
-                              }),
-                        )),
+                    AppDropDownMenu(
+                      languages: languages,
+                      selectedValue: nextselectedvalue,
+                      gradientColor1: const Color.fromRGBO(177, 43, 80, 10),
+                      gradientColor2: const Color.fromRGBO(218, 141, 86, 10),
+                      onChanged: (value) {
+                        if (value == languages[0]) {
+                          to = languagecodes[0];
+                        } else if (value == languages[1]) {
+                          to = languagecodes[1];
+                        } else if (value == languages[2]) {
+                          to = languagecodes[2];
+                        } else if (value == languages[3]) {
+                          to = languagecodes[3];
+                        } else if (value == languages[4]) {
+                          to = languagecodes[4];
+                        } else if (value == languages[5]) {
+                          to = languagecodes[5];
+                        } else if (value == languages[6]) {
+                          to = languagecodes[6];
+                        } else if (value == languages[7]) {
+                          to = languagecodes[7];
+                        }
+                        setState(() {});
+                      },
+                    ),
                   ],
                 ),
                 AppSecondContainer(text: data),
@@ -204,6 +185,9 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                   text: "Translate",
                   ontap: translate,
                   buttonColor: Colors.black,
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
               ],
             ),

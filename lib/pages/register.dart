@@ -4,7 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator_app/bloc/eyes_bloc.dart';
 import 'package:translator_app/core/constants/routes.dart';
-import 'package:translator_app/widgets/widget.dart';
+import 'package:translator_app/widgets/button.dart';
+import 'package:translator_app/widgets/textfield.dart';
+
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);

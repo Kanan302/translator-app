@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:translator_app/core/constants/routes.dart';
-import 'package:translator_app/widgets/widget.dart';
+import 'package:translator_app/widgets/button.dart';
+
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

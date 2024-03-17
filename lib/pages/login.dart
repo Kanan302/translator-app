@@ -4,7 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:translator_app/bloc/eyes_bloc.dart';
 import 'package:translator_app/core/constants/routes.dart';
-import 'package:translator_app/widgets/widget.dart';
+import 'package:translator_app/widgets/button.dart';
+import 'package:translator_app/widgets/textfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
