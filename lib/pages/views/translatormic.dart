@@ -126,24 +126,11 @@ class _TranslatorMicState extends State<TranslatorMic> {
                         gradientColor1: const Color.fromRGBO(231, 104, 167, 10),
                         gradientColor2: const Color.fromRGBO(98, 30, 162, 10),
                         onChanged: (value) {
-                          if (value == languages[0]) {
-                            from = languagecodes[0];
-                          } else if (value == languages[1]) {
-                            from = languagecodes[1];
-                          } else if (value == languages[2]) {
-                            from = languagecodes[2];
-                          } else if (value == languages[3]) {
-                            from = languagecodes[3];
-                          } else if (value == languages[4]) {
-                            from = languagecodes[4];
-                          } else if (value == languages[5]) {
-                            from = languagecodes[5];
-                          } else if (value == languages[6]) {
-                            from = languagecodes[6];
-                          } else if (value == languages[7]) {
-                            from = languagecodes[7];
-                          }
-                          setState(() {});
+                          setState(() {
+                            selectedvalue = value;
+                            from =
+                                languagecodes[languages.indexOf(selectedvalue)];
+                          });
                         },
                       ),
                     ],
@@ -176,24 +163,11 @@ class _TranslatorMicState extends State<TranslatorMic> {
                         gradientColor1: const Color.fromRGBO(177, 43, 80, 10),
                         gradientColor2: const Color.fromRGBO(218, 141, 86, 10),
                         onChanged: (value) {
-                          if (value == languages[0]) {
-                            to = languagecodes[0];
-                          } else if (value == languages[1]) {
-                            to = languagecodes[1];
-                          } else if (value == languages[2]) {
-                            to = languagecodes[2];
-                          } else if (value == languages[3]) {
-                            to = languagecodes[3];
-                          } else if (value == languages[4]) {
-                            to = languagecodes[4];
-                          } else if (value == languages[5]) {
-                            to = languagecodes[5];
-                          } else if (value == languages[6]) {
-                            to = languagecodes[6];
-                          } else if (value == languages[7]) {
-                            to = languagecodes[7];
-                          }
-                          setState(() {});
+                          setState(() {
+                            nextselectedvalue = value;
+                            to = languagecodes[
+                                languages.indexOf(nextselectedvalue)];
+                          });
                         },
                       ),
                     ],

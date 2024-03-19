@@ -134,7 +134,6 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                 const SizedBox(
                   height: 10,
                 ),
-                AppSecondContainer(text: scannedText),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -155,24 +154,11 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                       gradientColor1: const Color.fromRGBO(177, 43, 80, 10),
                       gradientColor2: const Color.fromRGBO(218, 141, 86, 10),
                       onChanged: (value) {
-                        if (value == languages[0]) {
-                          to = languagecodes[0];
-                        } else if (value == languages[1]) {
-                          to = languagecodes[1];
-                        } else if (value == languages[2]) {
-                          to = languagecodes[2];
-                        } else if (value == languages[3]) {
-                          to = languagecodes[3];
-                        } else if (value == languages[4]) {
-                          to = languagecodes[4];
-                        } else if (value == languages[5]) {
-                          to = languagecodes[5];
-                        } else if (value == languages[6]) {
-                          to = languagecodes[6];
-                        } else if (value == languages[7]) {
-                          to = languagecodes[7];
-                        }
-                        setState(() {});
+                        setState(() {
+                          nextselectedvalue = value;
+                          to = languagecodes[
+                              languages.indexOf(nextselectedvalue)];
+                        });
                       },
                     ),
                   ],
