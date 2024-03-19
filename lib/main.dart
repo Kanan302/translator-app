@@ -23,14 +23,12 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final eyesBloc = EyesBloc();
-
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => eyesBloc,
+      create: (context) => EyesBloc(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.splash.path,

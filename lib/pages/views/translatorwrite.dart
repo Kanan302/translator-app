@@ -111,11 +111,14 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                   ],
                 ),
                 AppFirstContainer(controller: textcontroller, formkey: formkey),
-                IconButton(
-                    onPressed: swapLanguages,
-                    icon: const Icon(Icons.swap_vert_circle_outlined)),
-                const SizedBox(
-                  height: 20,
+                FloatingActionButton(
+                  onPressed: swapLanguages,
+                  tooltip: 'Swap',
+                  backgroundColor: Colors.black,
+                  child: const Icon(
+                    Icons.swap_vert,
+                    color: Colors.white,
+                  ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
