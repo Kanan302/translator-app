@@ -94,7 +94,7 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                   Container(
                     width: 200,
                     height: 200,
-                    color: Colors.grey[300],
+                    color: Colors.grey.shade300,
                   ),
                 const SizedBox(
                   height: 20,
@@ -105,28 +105,28 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor: const Color(0xFF4E65FF),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         shadowColor: Colors.grey[600]),
                     onPressed: () {
                       getImage();
                     },
-                    child: SizedBox(
+                    child: const SizedBox(
                       width: 50,
                       height: 60,
                       child: Column(
                         children: [
-                          const SizedBox(
+                          SizedBox(
                             height: 10,
                           ),
                           Icon(
                             Icons.photo,
-                            color: Colors.grey[700],
+                            color: Colors.white,
                           ),
                           Text(
                             'Gallery',
-                            style: TextStyle(color: Colors.grey[600]),
+                            style: TextStyle(color: Colors.white),
                           )
                         ],
                       ),
@@ -151,8 +151,6 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                     AppDropDownMenu(
                       languages: languages,
                       selectedValue: nextselectedvalue,
-                      gradientColor1: const Color.fromRGBO(177, 43, 80, 10),
-                      gradientColor2: const Color.fromRGBO(218, 141, 86, 10),
                       onChanged: (value) {
                         setState(() {
                           nextselectedvalue = value;
@@ -170,7 +168,7 @@ class _TranslatorGalleryState extends State<TranslatorGallery> {
                 AppButton(
                   text: "Translate",
                   ontap: translate,
-                  buttonColor: Colors.black,
+                  buttonColor: const Color(0xFF3C00E5),
                 ),
                 const SizedBox(
                   height: 20,

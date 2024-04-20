@@ -100,7 +100,7 @@ class _TranslatorMicState extends State<TranslatorMic> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   const SizedBox(
@@ -123,8 +123,6 @@ class _TranslatorMicState extends State<TranslatorMic> {
                       AppDropDownMenu(
                         languages: languages,
                         selectedValue: selectedvalue,
-                        gradientColor1: const Color.fromRGBO(231, 104, 167, 10),
-                        gradientColor2: const Color.fromRGBO(98, 30, 162, 10),
                         onChanged: (value) {
                           setState(() {
                             selectedvalue = value;
@@ -138,14 +136,14 @@ class _TranslatorMicState extends State<TranslatorMic> {
                   AppFirstContainer(
                       controller: textController, formkey: formkey),
                   FloatingActionButton(
-                  onPressed: swapLanguages,
-                  tooltip: 'Swap',
-                  backgroundColor: Colors.black,
-                  child: const Icon(
-                    Icons.swap_vert,
-                    color: Colors.white,
+                    onPressed: swapLanguages,
+                    tooltip: 'Swap',
+                    backgroundColor: const Color(0xFF3C00E5),
+                    child: const Icon(
+                      Icons.swap_vert,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -163,8 +161,6 @@ class _TranslatorMicState extends State<TranslatorMic> {
                       AppDropDownMenu(
                         languages: languages,
                         selectedValue: nextselectedvalue,
-                        gradientColor1: const Color.fromRGBO(177, 43, 80, 10),
-                        gradientColor2: const Color.fromRGBO(218, 141, 86, 10),
                         onChanged: (value) {
                           setState(() {
                             nextselectedvalue = value;

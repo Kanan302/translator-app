@@ -13,8 +13,14 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color textColor = buttonColor == Colors.black ? Colors.white : Colors.black;
-
+    Color textColor;
+    if(buttonColor == const Color(0xFF3C00E5) || buttonColor == Colors.black){
+      textColor =  Colors.white;
+    }
+    else{
+      textColor =  Colors.black;
+    }
+  
     return SizedBox(
       width: 140,
       height: 35,

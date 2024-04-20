@@ -74,7 +74,7 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,8 +98,6 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                     AppDropDownMenu(
                       languages: languages,
                       selectedValue: selectedvalue,
-                      gradientColor1: const Color.fromRGBO(231, 104, 167, 10),
-                      gradientColor2: const Color.fromRGBO(98, 30, 162, 10),
                       onChanged: (value) {
                         setState(() {
                           selectedvalue = value;
@@ -114,7 +112,7 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                 FloatingActionButton(
                   onPressed: swapLanguages,
                   tooltip: 'Swap',
-                  backgroundColor: Colors.black,
+                  backgroundColor: const Color(0xFF3C00E5),
                   child: const Icon(
                     Icons.swap_vert,
                     color: Colors.white,
@@ -137,8 +135,6 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                     AppDropDownMenu(
                       languages: languages,
                       selectedValue: nextselectedvalue,
-                      gradientColor1: const Color.fromRGBO(177, 43, 80, 10),
-                      gradientColor2: const Color.fromRGBO(218, 141, 86, 10),
                       onChanged: (value) {
                         setState(() {
                           nextselectedvalue = value;
@@ -156,7 +152,7 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
                 AppButton(
                   text: "Translate",
                   ontap: translate,
-                  buttonColor: Colors.black,
+                  buttonColor: const Color(0xFF3C00E5),
                 ),
                 const SizedBox(
                   height: 20,
