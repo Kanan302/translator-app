@@ -71,11 +71,11 @@ class _TranslatorMicState extends State<TranslatorMic> {
     'fr': 'fr-FR',
   };
 
-  String selectedvalue = 'English';
-  String from = 'en';
+  String selectedvalue = 'Azerbaijani';
+  String from = 'az';
 
-  String nextselectedvalue = 'Azerbaijani';
-  String to = 'az';
+  String nextselectedvalue = 'English';
+  String to = 'en';
 
   String data = '';
 

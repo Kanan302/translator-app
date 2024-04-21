@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Password',
+                        'Confirm',
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),

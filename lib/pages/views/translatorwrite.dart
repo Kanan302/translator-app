@@ -28,13 +28,13 @@ class _TranslatorWriteState extends State<TranslatorWrite> {
 
   List<String> languagecodes = ['az', 'en', 'ru', 'tr', 'it', 'es', 'de', 'fr'];
 
-  String selectedvalue = 'English';
-  String nextselectedvalue = 'Azerbaijani';
-  String from = 'en';
-  String to = 'az';
+  String selectedvalue = 'Azerbaijani';
+  String nextselectedvalue = 'English';
+  String from = 'az';
+  String to = 'en';
   TextEditingController textcontroller =
-      TextEditingController(text: 'Hello World!');
-  String data = "Salam Dünya!";
+      TextEditingController(text: 'Salam Dünya!');
+  String data = "Hello World!";
 
   void swapLanguages() {
     String temp = from;
